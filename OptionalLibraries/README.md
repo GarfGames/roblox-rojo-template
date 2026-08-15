@@ -42,7 +42,7 @@ local Signal = require(ReplicatedStorage.libs.Signal)
 
 Each library in this collection follows a few simple principles:
 
-* **Independence** — No dependencies on the core template or other libraries (though the [Modular Framework](/OptionalLibraries/ModularFramework/) is often mentioned or used by default).
+* **Independence** — No dependencies on the core template or other libraries (though the [Modular Framework](ModularFramework/) is often mentioned or used by default).
 * **Readability** — Code is structured and (*over*-)commented for easy learning and modification.
 * **Reusability** — Designed to be portable between different Roblox projects.
 * **Performance Awareness** — Built with efficient patterns suitable for real-time games.

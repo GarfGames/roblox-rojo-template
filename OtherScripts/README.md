@@ -21,7 +21,7 @@ Use this folder to:
 
 ## 📦 Looking for Reusable Modules?
 
-If you're looking for reusable, documented scripts intended for public use, check out the [`PublicModules`](../PublicModules) folder instead.
+If you're looking for reusable, documented scripts intended for public use, check out the [`OptionalLibraries`](../OptionalLibraries/) folder instead.
 
 ---
 

@@ -1,17 +1,17 @@
 # Network Library
 
-The `Network` library provides a **type-safe, high-level interface for RemoteEvents and RemoteFunctions** in Roblox.
+The `Network` library provides a high-level interface for RemoteEvents and RemoteFunctions in Roblox.
 It automatically manages the creation, replication, and invocation of remotes, so you don’t have to manually create folders, assign remotes, or handle client/server differences.
-It also enforces argument type safety when connecting signals, reducing runtime errors caused by missing or misnamed remotes.
+Remote names are defined in one place, which reduces typo-prone string usage and improves editor completion.
 
 ---
 
 ## 🧩 Features
 
 * Automatic creation of RemoteEvent and RemoteFunction folders and instances.
-* Type-safe enums for all remote names, reducing typo-prone string usage (and providing auto-complete).
+* Named remote constants, reducing typo-prone string usage and providing auto-complete.
 * Automatic client/server distinctions when connecting events or binding functions.
-* Safe client/server invocation with `pcall` for network error handling.
+* Client/server invocation helpers that return `pcall` success and result values.
 * Lightweight and modular, fully compatible with Rojo and VS Code workflows.
 
 ---
@@ -53,7 +53,7 @@ Network.startClientAsync()
 
 > ⚠️ Both `startServer()` and `startClientAsync()` must be called before any other Network functions.
 
-> 💡 If using the [Modular Framework](/OptionalLibraries/ModularFramework/), make sure to call these start functions from the single server and local scripts **before** calling the `ModuleLoader` function.
+> 💡 If using the [Modular Framework](../ModularFramework/), make sure to call these start functions from the single server and local scripts **before** calling the `ModuleLoader` function.
 
 ---
 
@@ -74,7 +74,7 @@ Automatically handles `OnServerEvent` vs `OnClientEvent`.
 ### Binding RemoteFunctions
 
 ```lua
-Network.bindFunction(Network.RemoteFunctions.ExampleRemoteFunc1, function(player, x, y)
+Network.bindFunction(Network.RemoteFunctions.ExampleRemoteFunction, function(player, x, y)
     return x + y
 end)
 ```
@@ -105,10 +105,10 @@ Network.fireAllClientsExcept(Network.RemoteEvents.ExampleRemote1, excludedPlayer
 
 ```lua
 -- Client calls server function
-local success, result = Network.invokeServerAsync(Network.RemoteFunctions.ExampleRemoteFunc1, 2, 3)
+local success, result = Network.invokeServerAsync(Network.RemoteFunctions.ExampleRemoteFunction, 2, 3)
 
 -- Server calls client function
-local success, result = Network.invokeClientAsync(Network.RemoteFunctions.ExampleRemoteFunc1, player, 2, 3)
+local success, result = Network.invokeClientAsync(Network.RemoteFunctions.ExampleRemoteFunction, player, 2, 3)
 ```
 
-All invocations are wrapped in `pcall` to prevent hangs from network errors.
+All invocations are wrapped in `pcall`, so errors are returned as `success = false`. A `RemoteFunction` can still yield while waiting for its handler, so use a `RemoteEvent` plus your own timeout for calls that must not block.

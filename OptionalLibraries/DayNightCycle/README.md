@@ -46,7 +46,7 @@ Use `DayNightCycle.Configure(...)` before calling `StartCycle()` to override def
 ## 🧠 Usage
 
 ### With ModuleLoader
-The module is designed to work out-of-the-box. If you're using the [`ModuleLoader`](/PublicModules/ModularFramework/) framework, the `ModuleLoader` will automatically call its `Start()` method, beginning the cycle with the default configuration.
+The module is designed to work out-of-the-box. If you're using the [`ModuleLoader`](../ModularFramework/) framework, the `ModuleLoader` will automatically call its `Start()` method, beginning the cycle with the default configuration.
 
 ### Standalone
 If you're not using the loader, you can start the cycle manually:

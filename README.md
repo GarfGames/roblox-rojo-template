@@ -8,6 +8,8 @@ This is a boilerplate template repository for scaffolding new Roblox projects us
 - `src/StarterPlayerScripts/Controllers/` - Place your localized client-sided UI and interaction controllers here.
 - `OptionalLibraries/` and `OtherScripts/` - Utility packs available for direct drop-in usage.
 
+The built-in `Loader` calls `Init()` and then `Start()` on modules it discovers. The optional `ModularFramework` uses `Setup()` and then `Start()` instead; use one lifecycle convention per project.
+
 ## Setup
 The project relies on `aftman` as the toolchain manager. To get started:
 1. `aftman install`
