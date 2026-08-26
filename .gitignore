@@ -19,3 +19,9 @@ __pycache__/
 /sourcemap.json
 /output/
 
+# Open Cloud API key (never commit)
+.env.publish
+
+# Rojo build output
+/build/
+
