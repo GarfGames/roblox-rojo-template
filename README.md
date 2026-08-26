@@ -30,7 +30,7 @@ Use `stylua .` to format Luau files.
 
 ## Publishing (GarfGames)
 
-This template includes `release`-branch CI (`.github/workflows/publish.yml`, `tool/publish.sh`, `tool/publish.env`). Fill the ids in `tool/publish.env`, add this experience to the shared Open Cloud key, and follow [Documentation/GitHub_Roblox_Publish.md](Documentation/GitHub_Roblox_Publish.md). Private repos use the GarfGames org secret `ROBLOX_API_KEY` — do not put the key in git.
+This template includes `release`-branch CI (`.github/workflows/publish.yml`, `tool/publish.sh`, `tool/publish.env`). Fill the ids in `tool/publish.env`, add this experience to the shared Open Cloud key, and follow [Documentation/GitHub_Roblox_Publish.md](Documentation/GitHub_Roblox_Publish.md). Each private game needs its own repo secret `ROBLOX_API_KEY` (`gh secret set ROBLOX_API_KEY --repo GarfGames/<game>`) — on the GitHub Free plan the GarfGames org secret does not reach private repos. Never put the key in git.
 
 ## Procedural Model Previews
 
