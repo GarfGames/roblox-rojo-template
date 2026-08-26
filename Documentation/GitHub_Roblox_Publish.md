@@ -1,45 +1,38 @@
 # GitHub → Roblox publish (GarfGames)
 
-Hand this file to an agent (or follow it yourself) in any **private** GarfGames game repo. Mallipelago is the working example: [GarfGames/mallipelago](https://github.com/GarfGames/mallipelago).
+This template already ships the publish kit:
+
+- `.github/workflows/publish.yml` — runs on push to `release`, not `main`
+- `tool/publish.sh` — lint, `rojo build`, Open Cloud upload
+- `tool/publish.env` — this game’s universe / place ids (not secret)
+
+Hand this file to an agent (or follow it) in a **private** GarfGames game created from this template.
 
 ## Already done for the org
 
 - Org Actions secret `ROBLOX_API_KEY` exists on **GarfGames**, visibility **private repositories**. Do **not** add a repo secret of the same name — it would hide the org secret.
 - CI reads `${{ secrets.ROBLOX_API_KEY }}`. Public repos and forks do not get this secret.
 
-## Per game (do this in the repo)
+## Per game
 
 ### 1. Open Cloud allowlist
 
-At [create.roblox.com/dashboard/credentials](https://create.roblox.com/dashboard/credentials), the shared key needs **universe-places:write** on **this** experience. If CI 403s, the key is still mallipelago-only.
+At [create.roblox.com/dashboard/credentials](https://create.roblox.com/dashboard/credentials), the shared key needs **universe-places:write** on **this** experience. If CI 403s, this universe is not on the key yet.
 
-### 2. Copy publish tooling from mallipelago
+### 2. Fill `tool/publish.env`
 
-From [mallipelago](https://github.com/GarfGames/mallipelago):
+Creator Dashboard URL:
 
-| File | What to change |
-| --- | --- |
-| `.github/workflows/publish.yml` | Keep as-is (triggers on `release`, not `main`) |
-| `tool/publish.sh` | `OUT=build/<repo>.rbxl` and the Keychain account name (`mallipelago` → this repo) |
-| `tool/publish.env` | This game’s universe + place ids (not secret) |
-
-Add to `.gitignore` if missing:
-
-```
-.env.publish
-/build/
-```
-
-`tool/publish.env`:
+`.../dashboard/creations/experiences/<UNIVERSE_ID>/places/<PLACE_ID>/configure`
 
 ```bash
-# Creator Dashboard URL:
-#   .../dashboard/creations/experiences/<UNIVERSE_ID>/places/<PLACE_ID>/configure
-UNIVERSE_ID=0
-PLACE_ID=0
+UNIVERSE_ID=0          # replace
+PLACE_ID=0             # replace
+PLACE_FILE=build/my-game.rbxl
+# PLACE_NAME=my-game   # optional macOS Keychain account
 ```
 
-Replace the zeros. Ids are public; the API key is not.
+Ids are public; the API key is not. Leave zeros until the experience exists — `publish.sh` will refuse to upload.
 
 ### 3. `release` branch
 
@@ -50,7 +43,7 @@ git checkout -b release        # skip if it already exists
 git push -u origin release
 ```
 
-Creating `release` from current `main` is the production snapshot. Further `main` pushes do **not** go live.
+That branch is the production snapshot. Further `main` pushes do **not** go live.
 
 ### 4. First ship (this is the deploy)
 
@@ -69,7 +62,7 @@ Local (optional): `tool/publish.sh`, `tool/publish.sh --saved`, or `tool/publish
 - Trigger publish on `main` (agents commit there).
 - Commit `.env.publish` or any API key.
 - Put `ROBLOX_API_KEY` on the repo if the org secret already covers private repos.
-- Publish a `rojo build` of a game that still has `UNIVERSE_ID=0`.
+- Publish while `UNIVERSE_ID` is still `0`.
 
 ## If it fails
 
