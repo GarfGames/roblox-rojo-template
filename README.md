@@ -28,6 +28,10 @@ python3 -m compileall -q tool/modelsnap
 
 Use `stylua .` to format Luau files.
 
+## Publishing (GarfGames)
+
+Private games in the org share one Open Cloud key. Follow [Documentation/GitHub_Roblox_Publish.md](Documentation/GitHub_Roblox_Publish.md) to add `release`-branch CI. Copy `tool/publish.sh` and `.github/workflows/publish.yml` from [mallipelago](https://github.com/GarfGames/mallipelago) (the working example). Do not put `ROBLOX_API_KEY` in the repo.
+
 ## Procedural Model Previews
 
 For procedural parts-based models, use [modelsnap](tool/modelsnap/) to export and render snapshots from the CLI without opening Roblox Studio. This makes it easier to catch placement, rotation, shape, front/back orientation, and visibility issues while iterating on Luau builders.
